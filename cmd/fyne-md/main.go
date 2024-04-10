@@ -7,6 +7,7 @@ import (
 
 func main() {
 	app := app.New()
+	app.Settings().SetTheme(gui.NewMyTheme())
 
 	win := gui.NewMainWindow(app)
 	win.Show()
