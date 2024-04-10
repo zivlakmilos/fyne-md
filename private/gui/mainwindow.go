@@ -24,6 +24,7 @@ func NewMainWindow(app fyne.App) *MainWindow {
 
 	w.setupUi()
 	w.setupHandlers()
+	w.createMenuItems()
 
 	return w
 }
@@ -39,6 +40,16 @@ func (w *MainWindow) setupUi() {
 	w.previewWidget = widget.NewRichTextFromMarkdown("")
 
 	w.win.SetContent(container.NewHSplit(w.editWidget, w.previewWidget))
+}
+
+func (w *MainWindow) createMenuItems() {
+	openMenu := fyne.NewMenuItem("Open...", func() {})
+	saveMenu := fyne.NewMenuItem("Save", func() {})
+	saveAsMenu := fyne.NewMenuItem("Save as...", func() {})
+	fileMenu := fyne.NewMenu("File", openMenu, saveMenu, saveAsMenu)
+
+	menu := fyne.NewMainMenu(fileMenu)
+	w.win.SetMainMenu(menu)
 }
 
 func (w *MainWindow) setupHandlers() {
