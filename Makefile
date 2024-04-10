@@ -1,6 +1,6 @@
 BINARY_NAME=MarkDown.tar.xz
 APP_NAME=MarkDown
-VERSION=0.0.1
+VERSION=1.0.0
 
 build:
 	fyne package --appVersion 1.0.0 --name MarkDown --icon icon.png --src ./cmd/fyne-md/ --release
