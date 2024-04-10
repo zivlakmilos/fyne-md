@@ -33,6 +33,8 @@ func NewMainWindow(app fyne.App) *MainWindow {
 	w.setupHandlers()
 	w.createMenuItems()
 
+	w.win.SetContent(container.NewHSplit(w.editWidget, w.previewWidget))
+
 	return w
 }
 
@@ -45,8 +47,10 @@ func (w *MainWindow) Show() {
 func (w *MainWindow) setupUi() {
 	w.editWidget = widget.NewMultiLineEntry()
 	w.previewWidget = widget.NewRichTextFromMarkdown("")
+}
 
-	w.win.SetContent(container.NewHSplit(w.editWidget, w.previewWidget))
+func (w *MainWindow) setupHandlers() {
+	w.editWidget.OnChanged = w.previewWidget.ParseMarkdown
 }
 
 func (w *MainWindow) createMenuItems() {
@@ -60,10 +64,6 @@ func (w *MainWindow) createMenuItems() {
 
 	menu := fyne.NewMainMenu(fileMenu)
 	w.win.SetMainMenu(menu)
-}
-
-func (w *MainWindow) setupHandlers() {
-	w.editWidget.OnChanged = w.previewWidget.ParseMarkdown
 }
 
 func (w *MainWindow) openFunc() func() {
